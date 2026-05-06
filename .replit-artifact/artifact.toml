@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Sipora Marketing Site"
+version = "1.0.0"
+id = "artifacts/sipora-site"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21909
+
+[services.development]
+run = "pnpm --filter @workspace/sipora-site run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/sipora-site", "run", "build" ]
+publicDir = "artifacts/sipora-site/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21909"
+BASE_PATH = "/"
